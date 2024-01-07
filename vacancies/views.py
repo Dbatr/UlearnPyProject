@@ -23,6 +23,7 @@ from django.shortcuts import render
 #     connection.close()
 #     print("last: ", time.time()-time_start , i)
 
+
 def index(request):
     # back_thread = threading.Thread(target=csvread)
     # back_thread.start()
