@@ -47,3 +47,17 @@ class Currency(models.Model):
         verbose_name = "Курс валюты"
         verbose_name_plural = "Курсы валют"
 
+class ProcessedVacancy(models.Model):
+    name = models.TextField(null=True, default=None)
+    salary = models.IntegerField(null=True, default=None)
+    area_name = models.TextField(null=True, default=None)
+    published_at = models.DateTimeField(null=False, default=None)
+
+    def __str__(self):
+        return f"{self.name} {self.area_name} {self.published_at}"
+
+    class Meta:
+        db_table = 'processed_vacancies'
+        verbose_name = "Обработанная вакансия"
+        verbose_name_plural = "Обработанные вакансии"
+
