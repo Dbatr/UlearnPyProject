@@ -24,3 +24,26 @@ class Vacancy(models.Model):
         verbose_name_plural = "Вакансии"
 
     pass
+
+class Currency(models.Model):
+    date = models.CharField(max_length=7)  # Например, "YYYY-MM"
+    byr = models.FloatField(null=True, blank=True)
+    usd = models.FloatField(null=True, blank=True)
+    eur = models.FloatField(null=True, blank=True)
+    kzt = models.FloatField(null=True, blank=True)
+    uah = models.FloatField(null=True, blank=True)
+    azn = models.FloatField(null=True, blank=True)
+    kgs = models.FloatField(null=True, blank=True)
+    uzs = models.FloatField(null=True, blank=True)
+    gel = models.FloatField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.date}"
+
+    class Meta:
+        ordering = ['date']
+        db_table = 'currency'  # Имя таблицы в базе данных
+
+        verbose_name = "Курс валюты"
+        verbose_name_plural = "Курсы валют"
+
