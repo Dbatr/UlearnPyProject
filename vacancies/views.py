@@ -4,6 +4,7 @@ import threading
 import time
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.db import connection
 
 # def csvread():
 #     connection = sqlite3.connect('db.sqlite3')
@@ -25,6 +26,30 @@ from django.shortcuts import render
 
 
 def index(request):
-    # back_thread = threading.Thread(target=csvread)
-    # back_thread.start()
-    return render(request, 'vacancies/index.html')
+
+    # Выполняем SQL-запрос
+    with connection.cursor() as cursor:
+        cursor.execute("""
+                SELECT
+                    SUBSTR(published_at, 1, 4) AS 'Год',
+                    COUNT(*) AS 'Количество вакансий'
+                FROM vacancies
+                GROUP BY SUBSTR(published_at, 1, 4)
+                ORDER BY SUBSTR(published_at, 1, 4) DESC
+            """)
+        result = cursor.fetchall()
+
+    # """
+    # SELECT
+    #         SUBSTR(published_at, 1, 4) AS 'Год',
+    #         ROUND(AVG(salary), 2) AS 'Средняя з/п'
+    #     FROM processed_vacancies
+    #     GROUP BY SUBSTR(published_at, 1, 4)
+    #     ORDER BY SUBSTR(published_at, 1, 4)
+    # """
+
+    # Передаем результат запроса в контекст шаблона
+    context = {'vacancy_stats': result}
+
+    # Отображаем шаблон
+    return render(request, 'vacancies/index.html', context)
