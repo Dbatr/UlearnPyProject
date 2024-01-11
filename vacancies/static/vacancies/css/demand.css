@@ -1,0 +1,61 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header, nav, main, footer {
+    margin: 20px;
+}
+
+header h1 {
+    color: #333;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+h1 {
+    color: #333;
+}
+
+table {
+    border-collapse: collapse;
+    width: 80%; /* Уменьшенная ширина таблицы */
+    margin-top: 10px; /* Уменьшенный отступ сверху */
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 6px; /* Уменьшенный внутренний отступ ячеек */
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+hr {
+    border: 1px solid #ddd;
+    margin-top: 10px; /* Уменьшенный отступ сверху */
+}
+
+footer {
+    margin-top: 10px; /* Уменьшенный отступ сверху */
+    color: #666;
+}
