@@ -1,8 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Востребованность</title>
+    <link rel="stylesheet" href="{% static 'vacancies/css/demand.css' %}">
 </head>
 <body>
     <header>
@@ -19,6 +21,9 @@
     <h1>Востребованность</h1>
 
     <h2>Средняя зарплата по годам</h2>
+
+    <img src="{% static 'vacancies/img/avg_salary.png' %}" alt="Средняя зарплата по годам">
+
     <table>
         <thead>
             <tr>
@@ -37,6 +42,9 @@
     </table>
 
     <h2>Количество вакансий по годам</h2>
+
+    <img src="{% static 'vacancies/img/vacancies_all.png' %}" alt="Количество всех вакансий">
+
     <table>
         <thead>
             <tr>
@@ -55,6 +63,9 @@
     </table>
 
     <h2>Средняя зарплата для Backend-программиста по годам</h2>
+
+    <img src="{% static 'vacancies/img/avg_salary_backend.png' %}" alt="Средняя зарплата для Backend-программиста по годам">
+
     <table>
         <thead>
             <tr>
@@ -73,6 +84,9 @@
     </table>
 
     <h2>Количество вакансий (Backend-программист) по годам</h2>
+
+     <img src="{% static 'vacancies/img/vacancies_backend.png' %}" alt="Количество вакансий для Backend-программиста">
+
     <table>
         <thead>
             <tr>
