@@ -132,3 +132,96 @@ def demand(request):
 
     # Отображаем шаблон
     return render(request, 'vacancies/demand.html', context)
+
+
+def geography(request):
+    # Запрос для уровня зарплат по городам
+    salary_area = """
+                    SELECT
+                        area_name AS 'Город',
+                        ROUND(AVG(salary), 2) AS 'Уровень зарплат по городам'
+                    FROM processed_vacancies
+                    GROUP BY area_name
+                    HAVING CAST(COUNT(*) AS REAL) >= 
+                    ((SELECT COUNT(*) FROM processed_vacancies)/100)
+                    ORDER BY ROUND(AVG(salary),2) DESC
+                    LIMIT 15
+                """
+    result = execute_sql_query(salary_area, 'salary_area')
+
+    # Запрос для доли вакансий по городам
+    dolya_area = """
+                        SELECT
+                            area_name AS 'Город',
+                            ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM vacancies), 2) AS 'Доля вакансий в %'
+                        FROM vacancies
+                        GROUP BY area_name
+                        ORDER BY COUNT(*) DESC
+                        LIMIT 15
+                    """
+    dolya_area_result = execute_sql_query(dolya_area, 'dolya_area')
+
+    # Запрос для уровня зарплат по городам для бэкендера
+    salary_area_backend = """
+                        SELECT
+                        area_name AS 'Город',
+                        ROUND(AVG(salary), 2) AS 'Уровень зарплат по городам'
+                    FROM processed_vacancies
+                    WHERE
+                        (name LIKE '%backend%'
+                        OR name LIKE '%Backend-программист%'
+                        OR name LIKE '%бэкэнд%'
+                        OR name LIKE '%бэкенд%'
+                        OR name LIKE '%бекенд%'
+                        OR name LIKE '%бекэнд%'
+                        OR name LIKE '%back end%'
+                        OR name LIKE '%бэк энд%'
+                        OR name LIKE '%бэк енд%'
+                        OR name LIKE '%django%'
+                        OR name LIKE '%flask%'
+                        OR name LIKE '%laravel%'
+                        OR name LIKE '%yii%'
+                        OR name LIKE '%symfony%')
+                    GROUP BY area_name
+                    ORDER BY ROUND(AVG(salary),2) DESC
+                    LIMIT 15
+                    """
+    backend_result = execute_sql_query(salary_area_backend, 'salary_area_backend')
+
+    # Запрос для доли вакансий по городам для бэкендера
+    dolya_area_backend = """
+                            SELECT
+                                area_name AS 'Город',
+                                ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM vacancies), 3) AS 'Доля вакансий в %'
+                            FROM vacancies
+                            WHERE
+                                (name LIKE '%backend%'
+                                OR name LIKE '%Backend-программист%'
+                                OR name LIKE '%бэкэнд%'
+                                OR name LIKE '%бэкенд%'
+                                OR name LIKE '%бекенд%'
+                                OR name LIKE '%бекэнд%'
+                                OR name LIKE '%back end%'
+                                OR name LIKE '%бэк энд%'
+                                OR name LIKE '%бэк енд%'
+                                OR name LIKE '%django%'
+                                OR name LIKE '%flask%'
+                                OR name LIKE '%laravel%'
+                                OR name LIKE '%yii%'
+                                OR name LIKE '%symfony%')
+                            GROUP BY area_name
+                            ORDER BY COUNT(*) DESC
+                            LIMIT 15
+                        """
+    dolya_area_backend_result = execute_sql_query(dolya_area_backend, 'dolya_area_backend')
+
+    # Передаем результаты запросов в контекст шаблона
+    context = {
+        'salary_area': result,
+        'dolya_area': dolya_area_result,
+        'salary_area_backend': backend_result,
+        'dolya_area_backend': dolya_area_backend_result
+    }
+
+    # Отображаем шаблон
+    return render(request, 'vacancies/geography.html', context)

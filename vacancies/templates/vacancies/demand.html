@@ -4,109 +4,129 @@
 <head>
     <meta charset="UTF-8">
     <title>Востребованность</title>
-    <link rel="stylesheet" href="{% static 'vacancies/css/demand.css' %}">
+
+    <!-- Подключение Bootstrap CSS с CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            height: 100vh;
+        }
+        main {
+            margin-left: 250px; /* Ширина левого меню */
+        }
+        nav {
+        position: fixed;
+        width: 250px; /* Ширина левого меню */
+        height: 100%;
+        }
+
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Логотип - Название проекта</h1>
+    <header class="bg-dark text-white text-center py-4">
+        <h1 class="mb-0">Логотип - Название проекта</h1>
     </header>
 
-    <nav>
-        <ul>
-            <li><a href="/">Главная</a></li>
-            <li><a href="/demand/">Востребованность</a></li>
-        </ul>
-    </nav>
+    <div class="d-flex" id="wrapper">
+        <!-- Левое меню -->
+        <nav class="bg-light border-right" id="sidebar">
+            <ul class="list-unstyled components">
+                <li><a href="/">Главная</a></li>
+                <li><a href="/demand/">Востребованность</a></li>
+                <li><a href="/geography/">География</a></li>
+            </ul>
+        </nav>
 
-    <h1>Востребованность</h1>
+        <div id="content" class="container-fluid">
+            <main class="mt-4">
+                <h1>Востребованность</h1>
 
-    <h2>Средняя зарплата по годам</h2>
+                <h2>Средняя зарплата по годам</h2>
+                <img src="{% static 'vacancies/img/avg_salary.png' %}" alt="Средняя зарплата по годам">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Год</th>
+                            <th>Средняя зарплата</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for year, avg_salary in avg_salary_stats %}
+                            <tr>
+                                <td>{{ year }}</td>
+                                <td>{{ avg_salary }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
 
-    <img src="{% static 'vacancies/img/avg_salary.png' %}" alt="Средняя зарплата по годам">
+                <h2>Количество вакансий по годам</h2>
+                <img src="{% static 'vacancies/img/vacancies_all.png' %}" alt="Количество всех вакансий">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Год</th>
+                            <th>Количество вакансий</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for year, vacancy_count in vacancy_stats %}
+                            <tr>
+                                <td>{{ year }}</td>
+                                <td>{{ vacancy_count }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Год</th>
-                <th>Средняя зарплата</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for year, avg_salary in avg_salary_stats %}
-                <tr>
-                    <td>{{ year }}</td>
-                    <td>{{ avg_salary }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                <h2>Средняя зарплата для Backend-программиста по годам</h2>
+                <img src="{% static 'vacancies/img/avg_salary_backend.png' %}" alt="Средняя зарплата для Backend-программиста по годам">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Год</th>
+                            <th>Средняя зарплата для Backend-программиста</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for year, avg_salary_backend in backend_avg_salary_stats %}
+                            <tr>
+                                <td>{{ year }}</td>
+                                <td>{{ avg_salary_backend }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
 
-    <h2>Количество вакансий по годам</h2>
+                <h2>Количество вакансий (Backend-программист) по годам</h2>
+                <img src="{% static 'vacancies/img/vacancies_backend.png' %}" alt="Количество вакансий для Backend-программиста">
 
-    <img src="{% static 'vacancies/img/vacancies_all.png' %}" alt="Количество всех вакансий">
-
-    <table>
-        <thead>
-            <tr>
-                <th>Год</th>
-                <th>Количество вакансий</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for year, vacancy_count in vacancy_stats %}
-                <tr>
-                    <td>{{ year }}</td>
-                    <td>{{ vacancy_count }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-    <h2>Средняя зарплата для Backend-программиста по годам</h2>
-
-    <img src="{% static 'vacancies/img/avg_salary_backend.png' %}" alt="Средняя зарплата для Backend-программиста по годам">
-
-    <table>
-        <thead>
-            <tr>
-                <th>Год</th>
-                <th>Средняя зарплата для Backend-программиста</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for year, avg_salary_backend in backend_avg_salary_stats %}
-                <tr>
-                    <td>{{ year }}</td>
-                    <td>{{ avg_salary_backend }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-    <h2>Количество вакансий (Backend-программист) по годам</h2>
-
-     <img src="{% static 'vacancies/img/vacancies_backend.png' %}" alt="Количество вакансий для Backend-программиста">
-
-    <table>
-        <thead>
-            <tr>
-                <th>Год</th>
-                <th>Количество вакансий (Backend-программист)</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for year, backend_count in backend_stats %}
-                <tr>
-                    <td>{{ year }}</td>
-                    <td>{{ backend_count }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-    <hr>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Год</th>
+                            <th>Количество вакансий (Backend-программист)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for year, backend_count in backend_stats %}
+                            <tr>
+                                <td>{{ year }}</td>
+                                <td>{{ backend_count }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </main>
+        </div>
+    </div>
     <footer>
         <p>ФИО и академическая группа студента</p>
     </footer>
+
+    <!-- Подключение Bootstrap JS с CDN (необходимо для некоторых компонентов) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
