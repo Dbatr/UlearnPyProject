@@ -3,6 +3,7 @@ import sqlite3
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+from django.conf import settings
 
 
 def run():
@@ -62,7 +63,7 @@ def run():
     ax_all.grid(axis='y')
 
     # Сохранение графика для всех вакансий как изображения
-    img_path_all = os.path.join('vacancies_all.png')
+    img_path_all = os.path.join(settings.BASE_DIR, 'vacancies', 'static', 'vacancies', 'img', 'vacancies_all.png')
     fig_all.savefig(img_path_all)
     plt.close(fig_all)  # Закрыть график, чтобы освободить ресурсы
     print("Saved")
@@ -78,7 +79,7 @@ def run():
     ax_backend.grid(axis='y')
 
     # Сохранение графика для вакансий бэка как изображения
-    img_path_backend = os.path.join('vacancies_backend.png')
+    img_path_backend = os.path.join(settings.BASE_DIR, 'vacancies', 'static', 'vacancies', 'img', 'vacancies_backend.png')
     fig_backend.savefig(img_path_backend)
     plt.close(fig_backend)  # Закрыть график, чтобы освободить ресурсы
     print("Saved")

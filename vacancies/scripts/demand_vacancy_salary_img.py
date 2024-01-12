@@ -3,6 +3,8 @@ import sqlite3
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+from django.conf import settings
+
 
 def run():
     # Подключение к базе данных
@@ -61,7 +63,7 @@ def run():
     ax_avg_salary.grid(axis='y')
 
     # Сохранение графика для средней зарплаты как изображения
-    img_path_avg_salary = os.path.join('avg_salary.png')
+    img_path_avg_salary = os.path.join(settings.BASE_DIR, 'vacancies', 'static', 'vacancies', 'img', 'avg_salary.png')
     fig_avg_salary.savefig(img_path_avg_salary)
     plt.close(fig_avg_salary)  # Закрыть график, чтобы освободить ресурсы
     print("Saved")
@@ -77,7 +79,7 @@ def run():
     ax_avg_salary_backend.grid(axis='y')
 
     # Сохранение графика для средней зарплаты бэка как изображения
-    img_path_avg_salary_backend = os.path.join('avg_salary_backend.png')
+    img_path_avg_salary_backend = os.path.join(settings.BASE_DIR, 'vacancies', 'static', 'vacancies', 'img', 'avg_salary_backend.png')
     fig_avg_salary_backend.savefig(img_path_avg_salary_backend)
     plt.close(fig_avg_salary_backend)  # Закрыть график, чтобы освободить ресурсы
     print("Saved")
