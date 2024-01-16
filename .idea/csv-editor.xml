@@ -10,6 +10,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\top_skills_by_year.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
       </map>
     </option>
   </component>
