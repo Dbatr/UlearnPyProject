@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.db import connection
 from django.core.cache import cache
+from vacancies.scripts import get_vacancies
 
 # def csvread():
 #     connection = sqlite3.connect('db.sqlite3')
@@ -66,7 +67,7 @@ def demand(request):
                 ROUND(AVG(salary), 2) AS 'Средняя з/п'
             FROM processed_vacancies
             GROUP BY SUBSTR(published_at, 1, 4)
-            ORDER BY SUBSTR(published_at, 1, 4)
+            ORDER BY SUBSTR(published_at, 1, 4) DESC
         """
     avg_salary_result = execute_sql_query(avg_salary_query, 'avg_salary_stats')
 
@@ -225,3 +226,13 @@ def geography(request):
 
     # Отображаем шаблон
     return render(request, 'vacancies/geography.html', context)
+
+
+def skills(request):
+    # Отображаем шаблон
+    return render(request, 'vacancies/skills.html')
+
+
+def last_vacancies(request):
+    vacancies = get_vacancies.run()
+    return render(request, 'vacancies/last_vacancies.html', {'vacancies': vacancies})

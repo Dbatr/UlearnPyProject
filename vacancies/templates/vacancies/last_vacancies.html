@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Last Vacancies</title>
+</head>
+<body>
+    <h1>Last Vacancies</h1>
+
+    <ul>
+        {% for vacancy in vacancies %}
+            <li>
+                <p>Vacancy ID: {{ vacancy.0 }}</p>
+                <p>Vacancy URL: <a href="{{ vacancy.1 }}">Ссылка на вакансию</a></p>
+                <p>Vacancy Title: {{ vacancy.2 }}</p>
+                <p>Company Name: {{ vacancy.3 }}</p>
+                <p>Salary From: {{ vacancy.4 }}</p>
+                <p>Salary To: {{ vacancy.5 }}</p>
+                <p>Currency: {{ vacancy.6 }}</p>
+                <p>Gross: {{ vacancy.7 }}</p>
+                <p>Region Name: {{ vacancy.8 }}</p>
+                <p>Published At: {{ vacancy.9 }}</p>
+                <p>Description: {{ vacancy.10 }}</p>
+                <p>Key Skills: {{ vacancy.11 }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
