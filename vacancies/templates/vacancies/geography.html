@@ -1,26 +1,9 @@
+{% extends 'vacancies/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>География</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-</head>
-<body>
-    <header class="bg-dark text-white text-center py-4">
-        <h1 class="mb-0">Шапка: Логотип - Название проекта</h1>
-    </header>
 
-    <nav>
-        <ul>
-            <li><a href="/">Главная</a></li>
-            <li><a href="/demand/">Востребованность</a></li>
-            <li><a href="/geography/">География</a></li>
-            <li><a href="/skills/">Навыки</a></li>
-            <li><a href="/last_vacancies/">Последние вакансии</a></li>
-        </ul>
-    </nav>
+{% block title %}География{% endblock %}
 
+{% block content %}
     <h1>География</h1>
 
     <h2>Уровень зарплат по городам</h2>
@@ -98,15 +81,4 @@
             {% endfor %}
         </tbody>
     </table>
-
-    <hr>
-    <footer>
-        <p>ФИО и академическая группа студента</p>
-    </footer>
-
-    <!-- Подключение Bootstrap JS с CDN (необходимо для некоторых компонентов) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</body>
-</html>
+{% endblock %}

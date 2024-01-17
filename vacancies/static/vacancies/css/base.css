@@ -1,0 +1,92 @@
+body{
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    padding-top: 50px;
+
+
+}
+.header{
+    position: fixed;
+    width: 100%;
+    height: 50px;;
+    background-color: rgb(221, 231, 255);
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    border-bottom: 1px solid rgb(199, 199, 199);
+
+}
+.header-container{
+    display: flex;
+    justify-content: left;
+    padding-left: 18px;
+}
+.sitename{
+    color: black;
+    font-size: 20px;;
+}
+
+.sidebar {
+    position: fixed;
+    z-index: 9998;
+    width: 200px;
+    height: 100%;
+    background-color: rgb(221, 231, 255);
+
+}
+.sidebar ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-left: 10px;
+    margin-top: 15px;
+}
+.sidebar li{
+    margin-right: 10px;
+    margin-bottom: 5px;
+
+
+}
+.sidebar a {
+    text-decoration: none; /* Убирает стандартное подчеркивание */
+    color: black; /* Цвет текста для обычных ссылок */
+    padding: 10px; /* Добавляет отступ вокруг текста ссылок */
+    display: block;
+    transition: background-color 0.3s ease; /* Плавное изменение цвета фона при наведении */
+    border-radius: 10px;
+}
+
+.sidebar a:hover {
+    background-color: rgb(255, 255, 255); /* Цвет фона при наведении */
+}
+.sidebar li.active a {
+    background-color: rgb(255, 255, 255); /* Цвет фона для активной ссылки */
+    color: black; /* Цвет текста для активной ссылки */
+}
+
+.main {
+    margin-left: 200px;
+    padding: 15px 20px;
+    box-sizing: border-box;
+}
+.main-container{
+
+    padding: 10px;
+    background-color:rgb(245, 248, 255);
+    border-radius: 10px;
+    min-height: calc(100vh - 200px);
+}
+
+footer {
+    position: relative;
+    z-index: 9999;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(81, 81, 81);
+    padding: 20px;
+    text-align: center;
+}
+footer p{
+    color: white;
+}

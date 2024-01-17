@@ -1,47 +1,10 @@
+{% extends 'vacancies/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Востребованность</title>
 
-    <!-- Подключение Bootstrap CSS с CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <style>
-        body {
-            height: 100vh;
-        }
-        main {
-            margin-left: 250px; /* Ширина левого меню */
-        }
-        nav {
-        position: fixed;
-        width: 250px; /* Ширина левого меню */
-        height: 100%;
-        }
+{% block title %}Востребованность{% endblock %}
 
-    </style>
-</head>
-<body>
-    <header class="bg-dark text-white text-center py-4">
-        <h1 class="mb-0">Логотип - Название проекта</h1>
-    </header>
-
-    <div class="d-flex" id="wrapper">
-        <!-- Левое меню -->
-        <nav class="bg-light border-right" id="sidebar">
-            <ul class="list-unstyled components">
-                <li><a href="/">Главная</a></li>
-                <li><a href="/demand/">Востребованность</a></li>
-                <li><a href="/geography/">География</a></li>
-                <li><a href="/skills/">Навыки</a></li>
-                <li><a href="/last_vacancies/">Последние вакансии</a></li>
-            </ul>
-        </nav>
-
-        <div id="content" class="container-fluid">
-            <main class="mt-4">
-                <h1>Востребованность</h1>
+{% block content %}
+    <h1>Востребованность</h1>
 
                 <h2>Средняя зарплата по годам</h2>
                 <img src="{% static 'vacancies/img/avg_salary.png' %}" alt="Средняя зарплата по годам">
@@ -119,16 +82,4 @@
                         {% endfor %}
                     </tbody>
                 </table>
-            </main>
-        </div>
-    </div>
-    <footer>
-        <p>ФИО и академическая группа студента</p>
-    </footer>
-
-    <!-- Подключение Bootstrap JS с CDN (необходимо для некоторых компонентов) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</body>
-</html>
+{% endblock %}
