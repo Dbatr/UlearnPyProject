@@ -42,7 +42,7 @@ def get_vacancy_info(vacancy):
 
 
 def run():
-    keywords = ['backend', 'Backend-программист', 'бэкэнд', 'back end', 'django', 'flask', 'laravel', 'yii', 'symfony']
+    keywords = ['backend', 'Backend-программист', 'бэкэнд', 'back end']
     url = "https://api.hh.ru/vacancies"
     today = datetime.now().replace(hour=0, minute=0, second=0)
     params = {

@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Шаблон{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'vacancies/css/base.css' %}">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <h1 class="sitename">DevBack</h1>
+        </div>
+    </header>
+
+    <div class="wrapper">
+        <nav class="sidebar">
+            <ul>
+                <li class="{% if request.path == '/' %}active{% endif %}"><a href="/">Главная</a></li>
+                <li class="{% if request.path == '/demand/' %}active{% endif %}"><a href="/demand/">Востребованность</a></li>
+                <li class="{% if request.path == '/geography/' %}active{% endif %}"><a href="/geography/">География</a></li>
+                <li class="{% if request.path == '/skills/' %}active{% endif %}"><a href="/skills/">Навыки</a></li>
+                <li class="{% if request.path == '/last_vacancies/' %}active{% endif %}"><a href="/last_vacancies/">Последние вакансии</a></li>
+            </ul>
+        </nav>
+
+        <main class="main">
+            <div class="main-container">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <!-- Your footer content goes here -->
+        <p>dsgsgsdh</p>
+    </footer>
+</body>
+</html>
