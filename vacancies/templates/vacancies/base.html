@@ -6,11 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Шаблон{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'vacancies/css/base.css' %}">
+    <script src="{% static 'vacancies/js/base.js' %}"></script>
 </head>
 <body>
     <header class="header">
         <div class="header-container">
-            <h1 class="sitename">DevBack</h1>
+            <h1 class="sitename clickable">DevBack</h1>
+            <img class="logo clickable" src="{% static 'vacancies/img/logo.png' %}" alt="DevBack Logo" width="60px" height="60px">
         </div>
     </header>
 
@@ -33,8 +35,8 @@
     </div>
 
     <footer>
-        <!-- Your footer content goes here -->
-        <p>dsgsgsdh</p>
+        <p><b>Автор:</b> Батршин Денис Аухадеевич</p>
+        <p><b>Группа:</b> АТ-01, РИ-220935</p>
     </footer>
 </body>
 </html>

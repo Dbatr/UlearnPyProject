@@ -6,6 +6,29 @@ from django.conf import settings
 
 
 # python manage.py runscript geography_vacancies_dolya_img -v2
+
+def create_pie(df, title, img_path):
+    # Создание круговой диаграммы
+    fig, ax = plt.subplots()
+    wedges, texts, autotexts = ax.pie(df['Доля вакансий в %'], labels=None, startangle=90, autopct='',
+                                      pctdistance=0.85)
+    ax.axis('equal')
+    ax.set_title(title)
+
+    # Создание легенды с названиями городов
+    legend_labels = df['Город']
+    ax.legend(legend_labels, loc='center left', bbox_to_anchor=(1, 0.5), title='Города')
+
+    # Скрытие текстовых меток на круговой диаграмме
+    for text in texts + autotexts:
+        text.set_visible(False)
+
+    # Сохранение диаграммы
+    fig.savefig(img_path, bbox_inches='tight')
+    plt.close(fig)
+    print(f"Saved {os.path.basename(img_path)}")
+
+
 def run():
     # Подключение к базе данных
     conn = sqlite3.connect('db.sqlite3')  # Используйте имя вашей базы данных
@@ -55,25 +78,16 @@ def run():
     conn.close()
 
     # Создание круговой диаграммы для всех вакансий
-    fig_all, ax_all = plt.subplots()
-    ax_all.pie(df_all['Доля вакансий в %'], labels=df_all['Город'], startangle=90, autopct='%1.1f%%', pctdistance=0.85)
-    ax_all.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-    ax_all.set_title('Доля вакансий в % по городам (все вакансии)')
-
-    # Сохранение диаграммы для всех вакансий как изображения
-    img_path_all = os.path.join(settings.BASE_DIR, 'vacancies', 'static', 'vacancies', 'img', 'pie_all.png')
-    fig_all.savefig(img_path_all)
-    plt.close(fig_all)
-    print("Saved")
+    create_pie(df_all, 'Доля вакансий по городам (все вакансии)',
+               os.path.join(settings.BASE_DIR, 'vacancies', 'static', 'vacancies', 'img', 'geography_pie_all.png'))
 
     # Создание круговой диаграммы для вакансий бэка
-    fig_backend, ax_backend = plt.subplots()
-    ax_backend.pie(df_backend['Доля вакансий в %'], labels=df_backend['Город'], autopct='%1.1f%%', startangle=90)
-    ax_backend.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-    ax_backend.set_title('Доля вакансий в % по городам (вакансии по backend)')
+    create_pie(df_backend, 'Доля вакансий Backend-программиста по городам',
+               os.path.join(settings.BASE_DIR, 'vacancies', 'static', 'vacancies', 'img', 'geography_pie_backend.png'))
 
-    # Сохранение диаграммы для вакансий бэка как изображения
-    img_path_backend = os.path.join(settings.BASE_DIR, 'vacancies', 'static', 'vacancies', 'img', 'pie_backend.png')
-    fig_backend.savefig(img_path_backend)
-    plt.close(fig_backend)
-    print("Saved")
+
+
+
+
+
+

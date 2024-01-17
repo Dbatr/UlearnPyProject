@@ -1,3 +1,5 @@
+# python manage.py runscript demand_vacancy_salary_img -v2
+
 import os
 import sqlite3
 import pandas as pd
@@ -54,32 +56,34 @@ def run():
 
     # Создание графика для средней зарплаты
     fig_avg_salary, ax_avg_salary = plt.subplots()
-    years_avg_salary = np.arange(len(df_avg_salary['Год']))
-    ax_avg_salary.bar(x=years_avg_salary, height=df_avg_salary['Средняя з/п'], width=0.4, label='Средняя зарплата')
-    ax_avg_salary.set_title('Средняя зарплата по годам')
-    ax_avg_salary.set_xticks(years_avg_salary)
-    ax_avg_salary.set_xticklabels(df_avg_salary['Год'], rotation=90, ha='center')
+    ax_avg_salary.plot(df_avg_salary['Год'], df_avg_salary['Средняя з/п'], label='Средняя зарплата', marker='o')
+    ax_avg_salary.set_title('Средняя зарплата по годам для всех вакансий')
     ax_avg_salary.legend()
     ax_avg_salary.grid(axis='y')
 
+    # Поворот меток оси x
+    plt.xticks(rotation=60)
+
     # Сохранение графика для средней зарплаты как изображения
-    img_path_avg_salary = os.path.join(settings.BASE_DIR, 'vacancies', 'static', 'vacancies', 'img', 'avg_salary.png')
+    img_path_avg_salary = os.path.join(settings.BASE_DIR, 'vacancies', 'static', 'vacancies', 'img', 'demand_avg_salary.png')
     fig_avg_salary.savefig(img_path_avg_salary)
     plt.close(fig_avg_salary)  # Закрыть график, чтобы освободить ресурсы
     print("Saved")
 
     # Создание графика для средней зарплаты бэка
     fig_avg_salary_backend, ax_avg_salary_backend = plt.subplots()
-    years_avg_salary_backend = np.arange(len(df_avg_salary_backend['Год']))
-    ax_avg_salary_backend.bar(x=years_avg_salary_backend, height=df_avg_salary_backend['Средняя з/п для бэка'], width=0.4, label='Средняя зарплата для бэка')
-    ax_avg_salary_backend.set_title('Средняя зарплата для Backend-программиста по годам')
-    ax_avg_salary_backend.set_xticks(years_avg_salary_backend)
-    ax_avg_salary_backend.set_xticklabels(df_avg_salary_backend['Год'], rotation=90, ha='center')
+    ax_avg_salary_backend.plot(df_avg_salary_backend['Год'], df_avg_salary_backend['Средняя з/п для бэка'],
+                               label='Средняя зарплата', marker='o')
+    ax_avg_salary_backend.set_title('Средняя зарплата по годам для Backend-программиста')
     ax_avg_salary_backend.legend()
     ax_avg_salary_backend.grid(axis='y')
 
+    # Поворот меток оси x
+    plt.xticks(rotation=60)
+
     # Сохранение графика для средней зарплаты бэка как изображения
-    img_path_avg_salary_backend = os.path.join(settings.BASE_DIR, 'vacancies', 'static', 'vacancies', 'img', 'avg_salary_backend.png')
+    img_path_avg_salary_backend = os.path.join(settings.BASE_DIR, 'vacancies', 'static', 'vacancies', 'img',
+                                               'demand_avg_salary_backend.png')
     fig_avg_salary_backend.savefig(img_path_avg_salary_backend)
     plt.close(fig_avg_salary_backend)  # Закрыть график, чтобы освободить ресурсы
     print("Saved")
