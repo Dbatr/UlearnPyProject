@@ -4,6 +4,24 @@ import requests
 from datetime import datetime
 import re
 
+currency_mapping = {
+        "AZN": "Манаты",
+        "BYR": "Белорусские рубли",
+        "EUR": "Евро",
+        "GEL": "Грузинский лари",
+        "KGS": "Киргизский сом",
+        "KZT": "Тенге",
+        "RUR": "Рубли",
+        "UAH": "Гривны",
+        "USD": "Доллары",
+        "UZS": "Узбекский сум"
+}
+
+nalogi = {
+    "true": "(Без вычета налогов)",
+    "false": "(С вычетом налогов)"
+}
+
 
 def clean_html(text):
     # Удаление HTML-тегов
@@ -31,11 +49,25 @@ def get_vacancy_details(vacancy_id):
         description = clean_html(description)
 
         key_skills = data.get("key_skills", [])
+        key_skills = [skill.get("name", "") for skill in key_skills]
+
         return description, key_skills
     else:
         print(
             f"Failed to get description and key skills for vacancy ID {vacancy_id}. Status code: {response.status_code}")
         return "", []
+
+
+def calculate_average_salary(salary_from, salary_to):
+    salary_from = salary_from or 0
+    salary_to = salary_to or 0
+
+    if salary_from != 0 and salary_to != 0:
+        return (salary_from + salary_to) / 2
+    elif salary_from == 0 and salary_to != 0:
+        return salary_to
+    elif salary_from != 0 and salary_to == 0:
+        return salary_from
 
 
 def get_vacancy_info(vacancy):
@@ -56,7 +88,14 @@ def get_vacancy_info(vacancy):
     else:
         salary_from = salary_to = 0
         currency = gross = None
-    return [vacancy_id, vacancy_url, vacancy_title, company_name, salary_from, salary_to, currency, gross, region_name, published_at
+
+    average_salary = calculate_average_salary(salary_from, salary_to)
+    # Замена кода валюты на полное название
+    currency = currency_mapping.get(currency, currency)
+
+    return [
+        vacancy_id, vacancy_url, vacancy_title, company_name, average_salary,
+        currency, gross, region_name, published_at
             ]
 
 
