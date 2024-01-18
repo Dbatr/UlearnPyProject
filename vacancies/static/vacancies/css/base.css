@@ -27,9 +27,11 @@ body{
     margin-top: 20px;
 }
 .sitename:hover{
+    cursor: pointer;
     font-size: 21px;
 }
 .logo:hover{
+    cursor: pointer;
     width: 61px;
     height: 61px;
 }

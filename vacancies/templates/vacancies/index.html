@@ -1,9 +1,61 @@
 {% extends 'vacancies/base.html' %}
+{% load static %}
 
 {% block title %}Главная страница{% endblock %}
 
-{% block content %}
-    <h1>Главная страница</h1>
+{% block extra_css %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'vacancies/css/index.css' %}">
+{% endblock %}
 
-    <p>Описание профессии</p>
+{% block content %}
+    <h1>Кто такой Backend-разработчик?</h1>
+    <img style="border-radius: 7px;" src="{% static 'vacancies/img/index_main_img.png' %}" alt="Backend-dev" width="700">
+    <h2>Backend-разработчик: Ключевые навыки и технологии</h2>
+
+    <p>Backend-разработчик – это профессионал, обладающий широким спектром знаний и навыков для создания и поддержки серверной части веб-приложений. Работа бэкендера внешне незаметна: пользователь не думает, как устроен сайт изнутри. Но если серверный код написан с ошибками, он не будет нормально работать. Для успешного выполнения своих обязанностей, backend-разработчик должен владеть следующим:</p>
+
+    <h3>Языки программирования:</h3>
+    <ul>
+        <li>PHP</li>
+        <li>Ruby</li>
+        <li>Python</li>
+        <li>Java</li>
+        <li>C#</li>
+    </ul>
+
+    <h3>Фреймворки:</h3>
+    <ul>
+        <li>Laravel</li>
+        <li>Django</li>
+        <li>Spring</li>
+        <li>Ruby on Rails</li>
+        <li>Meteor</li>
+        <li>Node.js</li>
+    </ul>
+
+    <h3>Базы данных:</h3>
+    <ul>
+        <li>MongoDB</li>
+        <li>MySQL</li>
+        <li>Oracle</li>
+        <li>Postgres</li>
+    </ul>
+
+    <h3>Серверы:</h3>
+    <ul>
+        <li>Apache</li>
+        <li>NGINX</li>
+        <li>Lighttpd</li>
+        <li>Microsoft IIS</li>
+    </ul>
+
+    <h3>Структуры данных и алгоритмы</h3>
+
+    <p>Backend-разработчик должен иметь глубокое понимание структур данных и алгоритмов, чтобы эффективно решать задачи в процессе разработки и оптимизации кода.</p>
+
+    <h3>API и ORM:</h3>
+    <p>Знание и опыт использования API (Application Programming Interface) и ORM (Object-Relational Mapping) являются важными компонентами для участия в разработке мобильных приложений. API обеспечивает взаимодействие между различными компонентами приложения, а ORM упрощает работу с базами данных.</p>
+
+    <p>Все эти навыки и технологии совместно позволяют backend-разработчику создавать мощные, масштабируемые и безопасные серверные решения для современных веб-приложений.</p>
 {% endblock %}
