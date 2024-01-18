@@ -1,4 +1,5 @@
 {% extends 'vacancies/base.html' %}
+{% load static %}
 
 {% block title %}Последние вакансии{% endblock %}
 
@@ -8,19 +9,23 @@
     <ul>
         {% for vacancy in vacancies %}
             <li>
-                <p>Vacancy ID: {{ vacancy.0 }}</p>
-                <p>Vacancy URL: <a href="{{ vacancy.1 }}">Ссылка на вакансию</a></p>
-                <p>Vacancy Title: {{ vacancy.2 }}</p>
-                <p>Company Name: {{ vacancy.3 }}</p>
-                <p>Salary From: {{ vacancy.4 }}</p>
-                <p>Salary To: {{ vacancy.5 }}</p>
-                <p>Currency: {{ vacancy.6 }}</p>
-                <p>Gross: {{ vacancy.7 }}</p>
-                <p>Region Name: {{ vacancy.8 }}</p>
-                <p>Published At: {{ vacancy.9 }}</p>
-                <p>Description: {{ vacancy.10 }}</p>
-                <p>Key Skills: {{ vacancy.11 }}</p>
+                <p>
+                    <strong>{{ vacancy.2 }}</strong>  ({{ vacancy.7 }})
+                    <button class="show-details" data-vacancy-id="{{ vacancy.0 }}">Посмотреть подробнее</button>
+                </p>
+                <div class="details" id="details-{{ vacancy.0 }}" style="display: none;">
+                    <p><a href="{{ vacancy.1 }}">Ссылка на вакансию</a></p>
+                    <p>Компания: {{ vacancy.3 }}</p>
+                    <p>Зарплата: {% if vacancy.4 %}{{ vacancy.4 }}{% else %}Не указано{% endif %}</p>
+                    <p>Валюта: {% if vacancy.5 %}{{ vacancy.5 }}{% else %}Не указано{% endif %}</p>
+                    <p>Gross: {% if vacancy.6 %}{{ vacancy.6 }}{% else %}Не указано{% endif %}</p>
+                    <p>Дата публикации вакансии: {{ vacancy.8 }}</p>
+                    <p>Описание вакансии: {{ vacancy.9 }}</p>
+                    <p>Навыки: {{ vacancy.10|join:', ' }}</p>
+                </div>
             </li>
         {% endfor %}
     </ul>
+
+    <script src="{% static 'vacancies/js/last_vacancies.js' %}"></script>
 {% endblock %}
