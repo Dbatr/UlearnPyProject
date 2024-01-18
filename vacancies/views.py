@@ -229,8 +229,31 @@ def geography(request):
 
 
 def skills(request):
-    # Отображаем шаблон
-    return render(request, 'vacancies/skills.html')
+    csv_file_path = 'all_skills.csv'
+    backend_csv_file_path = 'backend_skills.csv'
+
+    # Read main CSV file and extract data
+    with open(csv_file_path, 'r', encoding='utf-8') as file:
+        reader = csv.DictReader(file)
+        skills_data = list(reader)
+
+    unique_years = sorted(set(row['Year'] for row in skills_data), reverse=True)
+
+    with open(backend_csv_file_path, 'r', encoding='utf-8') as backend_file:
+        backend_reader = csv.DictReader(backend_file)
+        backend_skills_data = list(backend_reader)
+
+    unique_backend_years = sorted(set(row['Year'] for row in backend_skills_data), reverse=True)
+
+    context = {
+        'skills_data': skills_data,
+        'unique_years': unique_years,
+        'backend_skills_data': backend_skills_data,
+        'unique_backend_years': unique_backend_years,
+    }
+
+    # Render the template for skills
+    return render(request, 'vacancies/skills.html', context)
 
 
 def last_vacancies(request):

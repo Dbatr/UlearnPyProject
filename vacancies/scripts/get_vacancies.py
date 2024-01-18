@@ -2,6 +2,21 @@
 
 import requests
 from datetime import datetime
+import re
+
+
+def clean_html(text):
+    # Удаление HTML-тегов
+    clean_text = re.sub('<.*?>', '', text)
+    # Замена HTML-кодов символов
+    clean_text = re.sub('&quot;', '"', clean_text)
+    clean_text = re.sub('&amp;', '&', clean_text)
+    clean_text = re.sub('&lt;', '<', clean_text)
+    clean_text = re.sub('&gt;', '>', clean_text)
+    clean_text = re.sub('&nbsp;', ' ', clean_text)
+    clean_text = re.sub('&copy;', '©', clean_text)
+    clean_text = re.sub('&reg;', '®', clean_text)
+    return clean_text
 
 
 def get_vacancy_details(vacancy_id):
@@ -11,6 +26,10 @@ def get_vacancy_details(vacancy_id):
     if response.status_code == 200:
         data = response.json()
         description = data.get("description", "")
+
+        # Используем функцию clean_html для удаления HTML-тегов и HTML-кодов символов
+        description = clean_html(description)
+
         key_skills = data.get("key_skills", [])
         return description, key_skills
     else:

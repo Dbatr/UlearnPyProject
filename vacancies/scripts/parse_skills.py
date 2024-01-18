@@ -1,40 +1,55 @@
-import pandas as pd
-from dateutil import parser
-from concurrent.futures import ProcessPoolExecutor
-import multiprocessing
-
-def parse_date(date_str):
-    try:
-        return parser.parse(date_str)
-    except:
-        return pd.Na
-
-def process_skills(df):
-    df['key_skills'] = df['key_skills'].str.replace(',', '\n')
-    df['key_skills'] = df['key_skills'].str.split('[\n]+')
-    df = df.explode('key_skills')  # Разделение строк с массивами в отдельные строки
-    df['key_skills_str'] = df['key_skills'].str.strip()
-    df['published_at'] = df['published_at'].apply(parse_date)
-    df['year'] = df['published_at'].dt.year
-    return df
-
 # python manage.py runscript parse_skills -v2
+import csv
+from collections import Counter
+
+
+def save_skills_to_csv(filename, data):
+    with open(filename, mode='w', newline='', encoding='utf-8') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(['Year', 'Skill', 'Count'])
+        for year, skills_count in data.items():
+            for skill, count in skills_count.items():
+                writer.writerow([year, skill, count])
+
+
 def run():
-    df = pd.read_csv('vacancies.csv')
-    df = df.dropna(subset=['key_skills'])
+    skills_all_by_year = {}
+    skills_backend_by_year = {}
 
-    num_processes = multiprocessing.cpu_count()  # Используйте количество доступных ядер процессора
-    chunks = [df.iloc[i::num_processes, :] for i in range(num_processes)]
+    with open('vacancies.csv', newline='', encoding='utf-8') as csvfile:
+        reader = csv.DictReader(csvfile)
 
-    with ProcessPoolExecutor(max_workers=num_processes) as executor:
-        processed_dfs = list(executor.map(process_skills, chunks))
+        for row in reader:
+            year = row['published_at'][:4]
+            skills = row['key_skills'].split('\n')
 
-    df_processed = pd.concat(processed_dfs)
-    df_filtered = df_processed[(df_processed['year'] >= 2003) & (df_processed['year'] <= 2023)]
+            # Очистка и разделение навыков
+            skills = [skill.strip() for skill in skills if skill.strip()]
 
-    skills_count_by_year = df_filtered.groupby(['year', 'key_skills_str']).size().reset_index(name='count')
-    top_skills_by_year = skills_count_by_year.groupby('year').apply(lambda x: x.nlargest(20, 'count')).reset_index(
-        drop=True)
+            # Проверка наличия года в словаре, инициализация списка при необходимости
+            if year in skills_all_by_year:
+                skills_all_by_year[year].extend(skills)
+            else:
+                skills_all_by_year[year] = skills
 
-    top_skills_by_year.to_csv('top_skills_by_year.csv', index=False)
-    print(top_skills_by_year)
+            # Проверка наличия ключевых навыков в имени вакансии
+            backend_keywords = ['Backend-программист', 'backend', 'бэкэнд', 'бэкенд', 'бекенд', 'бекэнд', 'back end',
+                                'бэк энд', 'бэк енд', 'django', 'flask', 'laravel', 'yii', 'symfony']
+            if any(word in row['name'].lower() for word in backend_keywords):
+                if year in skills_backend_by_year:
+                    skills_backend_by_year[year].extend(skills)
+                else:
+                    skills_backend_by_year[year] = skills
+
+    for data, filename in zip([skills_all_by_year, skills_backend_by_year],
+                              ['all_skills.csv', 'backend_skills.csv']):
+        with open(filename, mode='w', newline='', encoding='utf-8') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(['Year', 'Skill', 'Count'])
+            for year, skills in data.items():
+                skills_count = Counter(skills)
+                for skill, count in skills_count.most_common(20):
+                    writer.writerow([year, skill, count])
+
+    print("Done")
+
