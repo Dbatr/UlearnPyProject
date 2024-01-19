@@ -3,73 +3,87 @@
 
 {% block title %}Навыки{% endblock %}
 
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'vacancies/css/skills.css' %}">
+{% endblock %}
+
 {% block content %}
-    <h1>Навыки</h1>
+    <div class="content-container">
+        <div class="img-section">
+            <img class="page-img" src="{% static 'vacancies/img/top_skills_graph.png' %}" alt="Рост самых популярных навыков 2023 года">
+        </div>
+        <div class="text-section">
+            <h2 class="choose-year">Выберите год, чтобы посмотреть популярные навыки всех вакансий</h2>
+            <div>
+                <label for="year">Год:</label>
+                <select id="year">
+                    {% for unique_year in unique_years %}
+                        <option value="{{ unique_year }}">{{ unique_year }}</option>
+                    {% endfor %}
+                </select>
+                <button onclick="filterByYear()">Показать</button>
+            </div>
 
-    <h2>Выберите год, чтобы посмотреть популярные навыки всех вакансий</h2>
-
-    <div>
-        <label for="year">Год:</label>
-        <select id="year">
-            {% for unique_year in unique_years %}
-                <option value="{{ unique_year }}">{{ unique_year }}</option>
-            {% endfor %}
-        </select>
-        <button onclick="filterByYear()">Показать</button>
+            <h2 class="top-name" id="selectedYear">ТОП-20 навыков за {{ unique_years.0 }}</h2>
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Навык</th>
+                            <th>Количество упоминаний</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in skills_data %}
+                            <tr class="year-row year-{{ row.Year }} show-row">
+                                <td>{{ row.Skill }}</td>
+                                <td>{{ row.Count }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-
-    <h2 id="selectedYear">ТОП-20 навыков за {{ unique_years.0 }}</h2>
-
-    <table id="skillsTable">
-        <thead>
-            <tr>
-                <th>Навык</th>
-                <th>Количество</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in skills_data %}
-                <tr class="year-row year-{{ row.Year }}">
-                    <td>{{ row.Skill }}</td>
-                    <td>{{ row.Count }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-    <hr>
     <!-- Вторая таблица для backend_skills.csv -->
 
-    <h2>Выберите год, чтобы посмотреть популярные навыки Backend-программиста</h2>
+    <div class="content-container">
+        <div class="img-section">
+            <img class="page-img" src="{% static 'vacancies/img/top_skills_backend_graph.png' %}" alt="Рост самых популярных навыков бэкендера 2023 года">
+        </div>
+        <div class=text-section"">
+            <h2 class="choose-year">Выберите год, чтобы посмотреть популярные навыки Backend-программиста</h2>
+            <div>
+                <label for="backend-year">Год:</label>
+                <select id="backend-year">
+                    {% for unique_year in unique_backend_years %}
+                        <option value="{{ unique_year }}">{{ unique_year }}</option>
+                    {% endfor %}
+                </select>
+                <button onclick="filterBackendByYear()">Показать</button>
+            </div>
 
-    <div>
-        <label for="backend-year">Год:</label>
-        <select id="backend-year">
-            {% for unique_year in unique_backend_years %}
-                <option value="{{ unique_year }}">{{ unique_year }}</option>
-            {% endfor %}
-        </select>
-        <button onclick="filterBackendByYear()">Показать</button>
+            <h2 class="top-name" id="selectedBackendYear">ТОП-20 навыков за {{ unique_backend_years.0 }}</h2>
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Навык</th>
+                            <th>Количество упоминаний</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in backend_skills_data %}
+                            <tr class="backend-year-row backend-year-{{ row.Year }} show-row">
+                                <td>{{ row.Skill }}</td>
+                                <td>{{ row.Count }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-
-    <h2 id="selectedBackendYear">ТОП-20 навыков за {{ unique_backend_years.0 }}</h2>
-
-    <table id="backendSkillsTable">
-        <thead>
-            <tr>
-                <th>Навык</th>
-                <th>Количество</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in backend_skills_data %}
-                <tr class="backend-year-row backend-year-{{ row.Year }}">
-                    <td>{{ row.Skill }}</td>
-                    <td>{{ row.Count }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
 
     <script src="{% static 'vacancies/js/skills.js' %}"></script>
 {% endblock %}

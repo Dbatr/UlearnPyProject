@@ -3,82 +3,104 @@
 
 {% block title %}География{% endblock %}
 
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'vacancies/css/geography.css' %}">
+{% endblock %}
+
 {% block content %}
-    <h1>География</h1>
 
-    <h2>Уровень зарплат по городам</h2>
-    <img src="{% static 'vacancies/img/geography_salary_area_all.png' %}" alt="Уровень зарплат по городам">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Город</th>
-                <th>Уровень зарплат</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in salary_area %}
-                <tr>
-                    <td>{{ row.0 }}</td>
-                    <td>{{ row.1 }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <h2 class="subsection-title">Уровень зарплат по городам</h2>
 
-    <h2>Доля вакансий по городам</h2>
-    <img src="{% static 'vacancies/img/geography_pie_all.png' %}" alt="Доля вакансий по городам">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Город</th>
-                <th>Доля вакансий (%)</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in dolya_area %}
-                <tr>
-                    <td>{{ row.0 }}</td>
-                    <td>{{ row.1 }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="chart-section">
+        <img class="chart-img" src="{% static 'vacancies/img/geography_salary_area_all.png' %}" alt="Уровень зарплат по городам">
+        <div class="table-container">
+            <table class="table">
+                <thead class="table-header">
+                    <tr>
+                        <th>Город</th>
+                        <th>Уровень зарплат (в рублях)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in salary_area %}
+                        <tr>
+                            <td>{{ row.0 }}</td>
+                            <td>{{ row.1 }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <h2>Уровень зарплат по городам для Backend-программиста</h2>
-    <img src="{% static 'vacancies/img/geography_salary_area_backend.png' %}" alt="Уровень зарплат по городам для Backend-программиста">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Город</th>
-                <th>Уровень зарплат для Backend-программиста</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in salary_area_backend %}
-                <tr>
-                    <td>{{ row.0 }}</td>
-                    <td>{{ row.1 }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <h2 class="subsection-title">Доля вакансий по городам</h2>
 
-    <h2>Доля вакансий по городам для Backend-программиста</h2>
-    <img src="{% static 'vacancies/img/geography_pie_backend.png' %}" alt="Доля вакансий по городам для Backend-программиста">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Город</th>
-                <th>Доля вакансий для Backend-программиста (%)</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in dolya_area_backend %}
-                <tr>
-                    <td>{{ row.0 }}</td>
-                    <td>{{ row.1 }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="chart-section">
+        <img class="chart-img-pie" src="{% static 'vacancies/img/geography_pie_all.png' %}" alt="Доля вакансий по городам">
+        <div class="table-container">
+            <table class="table">
+                <thead class="table-header">
+                    <tr>
+                        <th>Город</th>
+                        <th>Доля вакансий (%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in dolya_area %}
+                        <tr>
+                            <td>{{ row.0 }}</td>
+                            <td>{{ row.1 }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <h2 class="subsection-title">Уровень зарплат по городам для Backend-программиста</h2>
+
+    <div class="chart-section">
+        <img class="chart-img" src="{% static 'vacancies/img/geography_salary_area_backend.png' %}" alt="Уровень зарплат по городам для Backend-программиста">
+        <div class="table-container">
+            <table class="table">
+                <thead class="table-header">
+                    <tr>
+                        <th>Город</th>
+                        <th>Уровень зарплат для Backend-программиста (в рублях)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in salary_area_backend %}
+                        <tr>
+                            <td>{{ row.0 }}</td>
+                            <td>{{ row.1 }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <h2 class="subsection-title">Доля вакансий по городам для Backend-программиста</h2>
+
+    <div class="chart-section">
+        <img class="chart-img-pie" src="{% static 'vacancies/img/geography_pie_backend.png' %}" alt="Доля вакансий по городам для Backend-программиста">
+        <div class="table-container">
+            <table class="table">
+                <thead class="table-header">
+                    <tr>
+                        <th>Город</th>
+                        <th>Доля вакансий для Backend-программиста (%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in dolya_area_backend %}
+                        <tr>
+                            <td>{{ row.0 }}</td>
+                            <td>{{ row.1 }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

@@ -1,0 +1,88 @@
+.content-container {
+    margin-left: 50px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: row;
+}
+
+/* Стиль для заголовка секции */
+h2 {
+    margin: 0;
+    font-size: 22px;
+    margin-top: 30px;
+}
+
+/* Стиль для блока выбора года */
+select, button {
+    height: 30px;
+    margin-right: 10px;
+}
+.img-section{
+    height: 400px;
+    margin-top: 43px;
+    margin-right: 50px;
+}
+.page-img{
+    width: 500px;
+    height: auto;
+    border-radius: 7px;
+    box-shadow: 0px 0px 23px 3px rgba(84, 84, 84, 0.2);
+}
+/* Общий стиль для таблиц */
+.table {
+    width: 450px;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.table th, .table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+/* Стиль для блока с таблицей */
+.table-container {
+    width: 467px;
+    overflow-x: auto;
+    max-height: 250px;
+    z-index: 0;
+}
+.table thead {
+    position: sticky;
+    top: 0;
+    background-color: #d9d9d9;
+    z-index: 1;
+}
+
+/* Общий стиль для скрытия строк */
+.hide-row {
+    display: none;
+}
+
+/* Стиль для отображаемых строк */
+.show-row {
+    display: table-row;
+}
+.top-name{
+    margin-bottom: 8px;
+}
+.choose-year{
+    margin-bottom: 10px;
+}
+.content-container select {
+    border: 1px solid #d9d9d9;
+    border-radius: 7px;
+}
+.content-container button {
+    border: 1px solid #d9d9d9;
+    background-color: #4d1d83;
+    color: #ffffff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.content-container button:hover {
+    background-color: #6527ad;
+}

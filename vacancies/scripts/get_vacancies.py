@@ -70,6 +70,14 @@ def calculate_average_salary(salary_from, salary_to):
         return salary_from
 
 
+def format_published_date(published_at):
+    # Преобразование строки в формат datetime
+    date_object = datetime.strptime(published_at, "%Y-%m-%dT%H:%M:%S%z")
+    # Форматирование даты в нужный вид
+    formatted_date = date_object.strftime("%d.%m.%Y")
+    return formatted_date
+
+
 def get_vacancy_info(vacancy):
     vacancy_id = vacancy.get("id")
     vacancy_title = vacancy.get("name")
@@ -77,6 +85,8 @@ def get_vacancy_info(vacancy):
     company_name = vacancy.get("employer", {}).get("name")
     region_name = vacancy.get("area", {}).get("name")
     published_at = vacancy.get("published_at")
+
+    published_at = format_published_date(published_at)
 
     salary_info = vacancy.get("salary", {})
     if salary_info:
@@ -100,11 +110,11 @@ def get_vacancy_info(vacancy):
 
 
 def run():
-    keywords = ['backend', 'Backend-программист', 'бэкэнд', 'back end']
+    keywords = ['backend', 'Backend', 'бэкэнд', 'back end']
     url = "https://api.hh.ru/vacancies"
     today = datetime.now().replace(hour=0, minute=0, second=0)
     params = {
-        "text": " OR ".join(keywords),
+        "text": " AND ".join(keywords),
         "date_from": today.isoformat(),
         "per_page": 10,
         "order_by": "publication_time"

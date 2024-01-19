@@ -10,7 +10,7 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\all_skills2.csv">
+        <entry key="\all_skils_graph.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -24,7 +24,7 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\backend_skills2.csv">
+        <entry key="\backend_skills_graph.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -32,27 +32,6 @@
           </value>
         </entry>
         <entry key="\currency.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\fullstack_skills.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\fullstack_skills2.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\top_skills_by_year.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
