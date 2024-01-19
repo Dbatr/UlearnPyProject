@@ -42,7 +42,7 @@ body{
     width: 200px;
     height: 100%;
     background-color: rgb(221, 231, 255);
-
+    border-right: 1px solid rgb(199, 199, 199);
 }
 .sidebar ul{
     list-style: none;

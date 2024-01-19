@@ -32,7 +32,7 @@ def index(request):
     return render(request, 'vacancies/index.html')
 
 
-def execute_sql_query(query, key, cache_time=3600):
+def execute_sql_query(query, key, cache_time=86400):
     cached_result = cache.get(key)
 
     if cached_result is not None:

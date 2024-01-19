@@ -19,7 +19,15 @@
 
 .chart-img {
     border-radius: 7px;
-    width: 550px;
+    width: 600px;
+    height: auto;
+    margin-right: 20px;
+    box-shadow: 0px 0px 23px 3px rgba(84, 84, 84, 0.2);
+}
+
+.chart-img-pie {
+    border-radius: 7px;
+    width: 706px;
     height: auto;
     margin-right: 20px;
     box-shadow: 0px 0px 23px 3px rgba(84, 84, 84, 0.2);
@@ -28,7 +36,7 @@
 .table-container {
     margin-left: 20px;
     margin-top: 0;
-    width: 320px;
+    width: 370px;
     max-height: 412px;
     overflow-y: auto;
     position: relative;
@@ -41,9 +49,9 @@
 }
 
 .table {
-    width: 300px;
+    width: 350px;
     border-collapse: collapse;
-    margin-top: 1px;
+    margin-top: 5px;
 }
 
 .table th, .table td {

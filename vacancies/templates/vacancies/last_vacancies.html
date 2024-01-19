@@ -9,23 +9,26 @@
     <ul>
         {% for vacancy in vacancies %}
             <li>
-                <p>
-                    <strong>{{ vacancy.2 }}</strong>  ({{ vacancy.7 }})
-                    <button class="show-details" data-vacancy-id="{{ vacancy.0 }}">Посмотреть подробнее</button>
+                <p class="vacancy-title" data-vacancy-id="{{ vacancy.0 }}">
+                    <img class="arrow-icon" src="{% static 'vacancies/img/strelka.png' %}" alt="Arrow Right" width="15">
+                    <strong>{{ vacancy.2 }}</strong> ({{ vacancy.7 }})
                 </p>
                 <div class="details" id="details-{{ vacancy.0 }}" style="display: none;">
-                    <p><a href="{{ vacancy.1 }}">Ссылка на вакансию</a></p>
                     <p>Компания: {{ vacancy.3 }}</p>
-                    <p>Зарплата: {% if vacancy.4 %}{{ vacancy.4 }}{% else %}Не указано{% endif %}</p>
+                    <p>Зарплата: {% if vacancy.4 %}{{ vacancy.4 }}{% else %}Не указано{% endif %}
+                    {% if vacancy.6 is not None %}
+                        {% if vacancy.6 %}(после вычета налогов){% else %}(до вычета налогов){% endif %}
+                    {% else %} {% endif %}</p>
                     <p>Валюта: {% if vacancy.5 %}{{ vacancy.5 }}{% else %}Не указано{% endif %}</p>
-                    <p>Gross: {% if vacancy.6 %}{{ vacancy.6 }}{% else %}Не указано{% endif %}</p>
-                    <p>Дата публикации вакансии: {{ vacancy.8 }}</p>
-                    <p>Описание вакансии: {{ vacancy.9 }}</p>
-                    <p>Навыки: {{ vacancy.10|join:', ' }}</p>
+                    <p>Описание вакансии: {{ vacancy.9|truncatechars:300 }}</p>
+                    <p>Навыки: {% if vacancy.10 %}{{ vacancy.10|join:', ' }}{% else %}Не указано{% endif %}</p>
+                    <p>Дата публикации: {{ vacancy.8 }}</p>
+                    <a class="vacancy-link" href="{{ vacancy.1 }}">Посмотреть подробнее...</a>
                 </div>
             </li>
         {% endfor %}
     </ul>
 
     <script src="{% static 'vacancies/js/last_vacancies.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'vacancies/css/last_vacancies.css' %}">
 {% endblock %}

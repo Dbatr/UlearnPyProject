@@ -1,0 +1,37 @@
+ul {
+    list-style-type: none;
+    padding: 0 0 0 10px;
+}
+.vacancy-title {
+    font-size: 18px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+}
+
+.arrow-icon {
+    margin-right: 8px; /* Расстояние между текстом и изображением */
+    transition: transform 0.3s ease; /* Плавное изменение поворота */
+}
+
+.vacancy-title.expanded .arrow-icon {
+    transform: rotate(90deg); /* Поворот изображения при раскрытой вакансии */
+}
+
+.vacancy-title:hover {
+    color: #4d1d83;
+}
+
+.vacancy-link {
+    color: rgb(74, 107, 176); /* Цвет ссылки (можно заменить на свой) */
+    text-decoration: none; /* Убрать подчеркивание */
+    font-weight: bold; /* Сделать текст жирным */
+    transition: color 0.3s ease; /* Плавное изменение цвета при hover */
+}
+
+.vacancy-link:hover {
+    color: #6527ad; /* Цвет ссылки при hover (можно заменить на свой) */
+}
+.details{
+    margin-left: 23px;
+}
