@@ -1,3 +1,27 @@
-h1{
-    color: aqua;
+.index-h {
+    color: #4d1d83;
+    margin-left: 10px;
+}
+
+.index-img{
+    border-radius: 7px;
+    box-shadow: 0px 0px 23px 3px rgba(84, 84, 84, 0.2);
+    margin-left: 10px;
+}
+
+p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+    margin-left: 10px;
+}
+
+ul li {
+    margin-bottom: 10px;
+}
+
+.authorship, .authorship a{
+    padding: 0;
+    color: #adadad;
+    font-size: 12px;
+    margin: 40px 0 0;
 }
