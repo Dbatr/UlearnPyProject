@@ -1,3 +1,4 @@
+import os
 import sqlite3
 import csv
 import threading
@@ -229,8 +230,14 @@ def geography(request):
 
 
 def skills(request):
-    csv_file_path = 'all_skills.csv'
-    backend_csv_file_path = 'backend_skills.csv'
+    # Получаем абсолютный путь к корню проекта
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+    # Формируем абсолютный путь к файлу 'all_skills.csv'
+    csv_file_path = os.path.join(project_root, 'all_skills.csv')
+
+    # Формируем абсолютный путь к файлу 'backend_skills.csv'
+    backend_csv_file_path = os.path.join(project_root, 'backend_skills.csv')
 
     # Read main CSV file and extract data
     with open(csv_file_path, 'r', encoding='utf-8') as file:
