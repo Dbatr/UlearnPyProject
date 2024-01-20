@@ -26,7 +26,6 @@ from vacancies.scripts import get_vacancies
 #     connection.close()
 #     print("last: ", time.time()-time_start , i)
 
-
 def index(request):
     # Отображаем шаблон
     return render(request, 'vacancies/index.html')
