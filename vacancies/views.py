@@ -7,6 +7,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.db import connection
 from django.core.cache import cache
+
+from vacancies.models import *
 from vacancies.scripts import get_vacancies
 
 # def csvread():
@@ -33,96 +35,12 @@ def index(request):
     return render(request, 'vacancies/index.html')
 
 
-def execute_sql_query(query, key, cache_time=86400):
-    cached_result = cache.get(key)
-
-    if cached_result is not None:
-        result = cached_result
-    else:
-        with connection.cursor() as cursor:
-            cursor.execute(query)
-            result = cursor.fetchall()
-
-        cache.set(key, result, cache_time)
-
-    return result
-
-
 # Страница востребованности
 def demand(request):
-    # Запрос для статистики по количеству вакансий
-    vacancy_query = """
-            SELECT
-                SUBSTR(published_at, 1, 4) AS 'Год',
-                COUNT(*) AS 'Количество вакансий'
-            FROM vacancies
-            GROUP BY SUBSTR(published_at, 1, 4)
-            ORDER BY SUBSTR(published_at, 1, 4) DESC
-        """
-    result = execute_sql_query(vacancy_query, 'vacancy_stats')
-
-    # Запрос для средней зарплаты
-    avg_salary_query = """
-            SELECT
-                SUBSTR(published_at, 1, 4) AS 'Год',
-                ROUND(AVG(salary), 2) AS 'Средняя з/п'
-            FROM processed_vacancies
-            GROUP BY SUBSTR(published_at, 1, 4)
-            ORDER BY SUBSTR(published_at, 1, 4) DESC
-        """
-    avg_salary_result = execute_sql_query(avg_salary_query, 'avg_salary_stats')
-
-    # Запрос для Backend-программистов
-    backend_query = """
-            SELECT
-                SUBSTR(published_at, 1, 4) AS 'Год',
-                COUNT(*) AS 'Количество вакансий для бэка'
-            FROM vacancies
-            WHERE 
-                name LIKE '%backend%'
-                OR name LIKE '%Backend-программист%'
-                OR name LIKE '%бэкэнд%'
-                OR name LIKE '%бэкенд%'
-                OR name LIKE '%бекенд%'
-                OR name LIKE '%бекэнд%'
-                OR name LIKE '%back end%'
-                OR name LIKE '%бэк энд%'
-                OR name LIKE '%бэк енд%'
-                OR name LIKE '%django%'
-                OR name LIKE '%flask%'
-                OR name LIKE '%laravel%'
-                OR name LIKE '%yii%'
-                OR name LIKE '%symfony%'
-            GROUP BY SUBSTR(published_at, 1, 4)
-            ORDER BY SUBSTR(published_at, 1, 4) DESC
-        """
-    backend_result = execute_sql_query(backend_query, 'backend_stats')
-
-    # Запрос для средней зарплаты Backend-программистов
-    backend_avg_salary_query = """
-            SELECT
-                SUBSTR(published_at, 1, 4) AS 'Год',
-                ROUND(AVG(salary), 2) AS 'Средняя з/п для бэка'
-            FROM processed_vacancies
-            WHERE 
-                name LIKE '%backend%'
-                OR name LIKE '%Backend-программист%'
-                OR name LIKE '%бэкэнд%'
-                OR name LIKE '%бэкенд%'
-                OR name LIKE '%бекенд%'
-                OR name LIKE '%бекэнд%'
-                OR name LIKE '%back end%'
-                OR name LIKE '%бэк энд%'
-                OR name LIKE '%бэк енд%'
-                OR name LIKE '%django%'
-                OR name LIKE '%flask%'
-                OR name LIKE '%laravel%'
-                OR name LIKE '%yii%'
-                OR name LIKE '%symfony%'
-            GROUP BY SUBSTR(published_at, 1, 4)
-            ORDER BY SUBSTR(published_at, 1, 4) DESC
-        """
-    backend_avg_salary_result = execute_sql_query(backend_avg_salary_query, 'backend_avg_salary_stats')
+    result = VacancyStats.objects.all()
+    avg_salary_result = AvgSalaryStats.objects.all()
+    backend_result = BackendStats.objects.all()
+    backend_avg_salary_result = BackendAvgSalaryStats.objects.all()
 
     # Передаем результаты запросов в контекст шаблона
     context = {
@@ -137,85 +55,11 @@ def demand(request):
 
 
 def geography(request):
-    # Запрос для уровня зарплат по городам
-    salary_area = """
-                    SELECT
-                        area_name AS 'Город',
-                        ROUND(AVG(salary), 2) AS 'Уровень зарплат по городам'
-                    FROM processed_vacancies
-                    GROUP BY area_name
-                    HAVING CAST(COUNT(*) AS REAL) >= 
-                    ((SELECT COUNT(*) FROM processed_vacancies)/100)
-                    ORDER BY ROUND(AVG(salary),2) DESC
-                    LIMIT 15
-                """
-    result = execute_sql_query(salary_area, 'salary_area')
 
-    # Запрос для доли вакансий по городам
-    dolya_area = """
-                        SELECT
-                            area_name AS 'Город',
-                            ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM vacancies), 2) AS 'Доля вакансий в %'
-                        FROM vacancies
-                        GROUP BY area_name
-                        ORDER BY COUNT(*) DESC
-                        LIMIT 15
-                    """
-    dolya_area_result = execute_sql_query(dolya_area, 'dolya_area')
-
-    # Запрос для уровня зарплат по городам для бэкендера
-    salary_area_backend = """
-                        SELECT
-                        area_name AS 'Город',
-                        ROUND(AVG(salary), 2) AS 'Уровень зарплат по городам'
-                    FROM processed_vacancies
-                    WHERE
-                        (name LIKE '%backend%'
-                        OR name LIKE '%Backend-программист%'
-                        OR name LIKE '%бэкэнд%'
-                        OR name LIKE '%бэкенд%'
-                        OR name LIKE '%бекенд%'
-                        OR name LIKE '%бекэнд%'
-                        OR name LIKE '%back end%'
-                        OR name LIKE '%бэк энд%'
-                        OR name LIKE '%бэк енд%'
-                        OR name LIKE '%django%'
-                        OR name LIKE '%flask%'
-                        OR name LIKE '%laravel%'
-                        OR name LIKE '%yii%'
-                        OR name LIKE '%symfony%')
-                    GROUP BY area_name
-                    ORDER BY ROUND(AVG(salary),2) DESC
-                    LIMIT 15
-                    """
-    backend_result = execute_sql_query(salary_area_backend, 'salary_area_backend')
-
-    # Запрос для доли вакансий по городам для бэкендера
-    dolya_area_backend = """
-                            SELECT
-                                area_name AS 'Город',
-                                ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM vacancies), 3) AS 'Доля вакансий в %'
-                            FROM vacancies
-                            WHERE
-                                (name LIKE '%backend%'
-                                OR name LIKE '%Backend-программист%'
-                                OR name LIKE '%бэкэнд%'
-                                OR name LIKE '%бэкенд%'
-                                OR name LIKE '%бекенд%'
-                                OR name LIKE '%бекэнд%'
-                                OR name LIKE '%back end%'
-                                OR name LIKE '%бэк энд%'
-                                OR name LIKE '%бэк енд%'
-                                OR name LIKE '%django%'
-                                OR name LIKE '%flask%'
-                                OR name LIKE '%laravel%'
-                                OR name LIKE '%yii%'
-                                OR name LIKE '%symfony%')
-                            GROUP BY area_name
-                            ORDER BY COUNT(*) DESC
-                            LIMIT 15
-                        """
-    dolya_area_backend_result = execute_sql_query(dolya_area_backend, 'dolya_area_backend')
+    result = SalaryArea.objects.all()
+    dolya_area_result = DolyaArea.objects.all()
+    backend_result = SalaryAreaBackend.objects.all()
+    dolya_area_backend_result = DolyaAreaBackend.objects.all()
 
     # Передаем результаты запросов в контекст шаблона
     context = {

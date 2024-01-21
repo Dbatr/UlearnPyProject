@@ -21,10 +21,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for year, avg_salary in avg_salary_stats %}
+                    {% for item in avg_salary_stats %}
                         <tr>
-                            <td>{{ year }}</td>
-                            <td>{{ avg_salary }}</td>
+                            <td>{{ item.year }}</td>
+                            <td>{{ item.average_salary }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -44,10 +44,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for year, vacancy_count in vacancy_stats %}
+                    {% for item in vacancy_stats %}
                         <tr>
-                            <td>{{ year }}</td>
-                            <td>{{ vacancy_count }}</td>
+                            <td>{{ item.year }}</td>
+                            <td>{{ item.vacancy_count }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -67,10 +67,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for year, avg_salary_backend in backend_avg_salary_stats %}
+                    {% for item in backend_avg_salary_stats %}
                         <tr>
-                            <td>{{ year }}</td>
-                            <td>{{ avg_salary_backend }}</td>
+                            <td>{{ item.year }}</td>
+                            <td>{{ item.backend_average_salary }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -90,10 +90,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for year, backend_count in backend_stats %}
+                    {% for item in backend_stats %}
                         <tr>
-                            <td>{{ year }}</td>
-                            <td>{{ backend_count }}</td>
+                            <td>{{ item.year }}</td>
+                            <td>{{ item.backend_vacancy_count }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

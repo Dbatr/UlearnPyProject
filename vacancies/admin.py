@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Vacancy, Currency, ProcessedVacancy
+from .models import *
 
 
 class VacancyAdmin(admin.ModelAdmin):
@@ -23,3 +23,14 @@ class ProcessedVacancyAdmin(admin.ModelAdmin):
 admin.site.register(Vacancy, VacancyAdmin)
 admin.site.register(Currency, CurrencyAdmin)
 admin.site.register(ProcessedVacancy, ProcessedVacancyAdmin)
+
+admin.site.register(VacancyStats)
+admin.site.register(AvgSalaryStats)
+admin.site.register(BackendStats)
+admin.site.register(BackendAvgSalaryStats)
+
+admin.site.register(SalaryArea)
+admin.site.register(DolyaArea)
+admin.site.register(SalaryAreaBackend)
+admin.site.register(DolyaAreaBackend)
+
