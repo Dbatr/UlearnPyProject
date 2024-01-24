@@ -110,14 +110,15 @@ def get_vacancy_info(vacancy):
 
 
 def run():
-    keywords = ['backend', 'Backend', 'бэкэнд', 'back end']
+    keywords = ['backend', 'Backend', 'бэкэнд', 'back end', 'бэк', 'бекенд']
     url = "https://api.hh.ru/vacancies"
     today = datetime.now().replace(hour=0, minute=0, second=0)
     params = {
-        "text": " AND ".join(keywords),
+        "text": " OR ".join(keywords),
         "date_from": today.isoformat(),
         "per_page": 10,
-        "order_by": "publication_time"
+        "order_by": "publication_time",
+        "search_field": "name"
     }
     response = requests.get(url, params=params)
 
